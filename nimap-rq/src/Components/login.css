@@ -1,0 +1,38 @@
+.loginContent{
+    max-width: 450px;
+    padding: 1rem 5rem;
+    background-color: #ddd;
+    margin: 0 auto;
+    border: .2rem solid #ccc;
+    border-radius: .3rem;
+    box-shadow: .2rem .2rem 2rem #999;
+}
+.loginInfo{
+    display: flex;
+    flex-direction: column;
+}
+.loginInfo h3{
+    align-self: flex-start;
+}
+.loginInfo input{
+    flex: 1;
+    padding: .5rem 1.2rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 1rem;
+}
+
+.loginBtn{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 4rem 0 2rem 0;
+}
+.loginBtn input,.loginBtn button{
+    padding: .5rem 1.6rem;
+    font-size: 2rem;
+    font-weight: 700;
+    background-color: #fff;
+    color: #333;
+    border: .1rem solid #333;
+    border-radius: .4rem;
+}
