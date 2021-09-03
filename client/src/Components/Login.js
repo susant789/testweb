@@ -15,8 +15,7 @@ function Login() {
 
   const login = ()=>{
     if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-        return M.toast({html: "invalid email",
-        classes:"#c62828 red darken-3"})
+        return console.log("invalid email")
     }
     fetch('/login',{
         method:"post",
@@ -29,12 +28,11 @@ function Login() {
         })
     }).then(res => res.json())
     .then(data => {
-        console.log(data)
         if(data.error){
-          M.toast({html: data.error,classes : "#c62828 red darken-3"})
+          console.log(data.error)
         }
         else{
-          M.toast({html: "successfully signed in",classes:"#2e7d32 green darken-3"})
+          console.log("sucessfully logedin")
           history.push('/')
         }
     }).catch(error =>{

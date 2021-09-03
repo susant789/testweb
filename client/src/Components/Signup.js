@@ -12,43 +12,43 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [Err,setErr] = useState("")
  
-//   const register = ()=>{
-//     if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-//         return console.log("invalid error")
-//     }
-//     fetch('/signup',{
-//         method:"post",
-//         headers:{
-//             "Content-Type" : "application/json" 
-//         },
-//         body:JSON.stringify({
-//             name : name,
-//             email : email,
-//             password : password,
-//         })
-//     }).then(res => res.json())
-//     .then(data => {
-//         if(data.error){
-//           console.log(data.error)
-//         }
-//         else{
-//           console.log("successfully signedin")
-//           history.push('/login')
-//         }
-//     }).catch(err =>{
-//         console.log(err);
-//     })
-// }
-
-  const register = () =>{
-    try{
-      localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
-      history.push("/login");
-    }catch(err){
-      setErr(err.message)
-      console.log(Err)
+  const register = ()=>{
+    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+        return console.log("invalid email")
     }
-  }
+    fetch('/signup',{
+        method:"post",
+        headers:{
+            "Content-Type" : "application/json" 
+        },
+        body:JSON.stringify({
+            name : name,
+            email : email,
+            password : password,
+        })
+    }).then(res => res.json())
+    .then(data => {
+        if(data.error){
+          console.log(data.error)
+        }
+        else{
+          console.log("successfully signedin")
+          history.push('/login')
+        }
+    }).catch(err =>{
+        console.log(err);
+    })
+}
+
+  // const register = () =>{
+  //   try{
+  //     localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
+  //     history.push("/login");
+  //   }catch(err){
+  //     setErr(err.message)
+  //     console.log(Err)
+  //   }
+  // }
   register();
 
   return (
@@ -62,7 +62,7 @@ function Signup() {
       >
         LOGO
       </h1>
-      <form className="loginContent" type="submit">
+      <form className="loginContent">
         <h1
           style={{ fontSize: "2.5rem", textAlign: "center", fontWeight: "400" }}
         >
