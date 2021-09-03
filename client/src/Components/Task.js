@@ -5,24 +5,48 @@ import axios from "axios";
 
 function Task() {
 
-  const [data,setData] = useState([])
+  const [render,setRender] = useState(0)
+
 
     useEffect(()=>{
-      axios
-			.get("http://jsonplaceholder.typicode.com/todos")
-			.then((res) => {
-				setData(res.data.slice(0, 4))   
-      })
-    },[])
+      if(
+        !JSON.parse(localStorage.getItem("tasks")) ||
+        !JSON.parse(localStorage.getItem("tasks")).length
+        ){
+        axios
+        .get("http://jsonplaceholder.typicode.com/todos")
+        .then((res) => {
+          localStorage.setItem("tasks",JSON.stringify(res.data.slice(0,20)));
+        })
+        .catch(err=>{
+          console.log(err)
+        })
+      } 
+    },[render])
 
-    console.log(data)
+    const deldata =(id)=>{
+      if (window.confirm("Are you sure?")) {
+        let datafromls = JSON.parse(localStorage.getItem("tasks"))
+          ? JSON.parse(localStorage.getItem("tasks"))
+          : [];
+          // filtering data
+          datafromls = datafromls.filter(
+            fdata=>fdata.id !== id
+          );
+          console.log(datafromls)
+          localStorage.setItem("tasks",JSON.stringify(datafromls));
+      }
+      setRender(render => render + 1)
+    }
 
   return (
     <div className="wrapper">
       <div className="content">
         {
-          data.map((todo)=>(
-            <Tasklist id={todo.id} title={todo.title} bool={todo.completed}/>
+          JSON.parse(localStorage.getItem("tasks")) &&
+          JSON.parse(localStorage.getItem("tasks"))
+          .map((todo)=>(
+          <Tasklist func={deldata} id={todo.id} title={todo.title} bool={todo.completed}/>
           ))
         }
         <button className="add">
@@ -32,5 +56,4 @@ function Task() {
     </div>
   );
 }
-
 export default Task;

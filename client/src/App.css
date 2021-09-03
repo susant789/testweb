@@ -29,3 +29,29 @@ html{
     color:#fff
   }
 }
+@keyframes welcome{
+  0%{
+    transform: rotateZ(10deg);
+    color:#bbb
+  }
+  5%{
+    transform: rotateZ(-4deg);
+    color:#ccc
+  }
+  10%{
+    transform: rotateZ(0deg);
+    opacity: 1;
+    color:#ddd
+  }
+  80%{
+    transform: scale(1.1);
+    color:#fff
+  }
+}
+
+@media only all and (max-width:750px) {
+  .wel{
+    display: none;
+    visibility:hidden;
+  }
+}

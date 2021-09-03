@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function Tasklist({id,title,bool}) {
+function Tasklist({id,title,bool,func}) {
   return (
     <List>
       <div>
@@ -11,7 +11,7 @@ function Tasklist({id,title,bool}) {
         </h2>
         <h2 className="bool" style={{flex:.15}}>{`${bool}`}</h2>
       </div>
-      <button className="del">Delete</button>
+      <button onClick={()=>func(id)} className="del">Delete</button>
     </List>
   );
 }
@@ -40,7 +40,7 @@ const List = styled.div`
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 0.08rem solid grey;
-    margin: 1rem 2rem 2rem 2rem;
+    margin: 1.8rem 2rem 2rem 1rem;
     color: black;
 
     h2 {

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./login.css";
-import {Alert,AlertTitle} from "@material-ui/lab"
+import { login } from "../Reducers/userSlice";
+import {useDispatch} from "react-redux"
 
 function Signup() {
 
@@ -11,45 +12,37 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Err,setErr] = useState("")
- 
-  const register = ()=>{
-    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-        return console.log("invalid email")
-    }
-    fetch('/signup',{
-        method:"post",
-        headers:{
-            "Content-Type" : "application/json" 
-        },
-        body:JSON.stringify({
-            name : name,
-            email : email,
-            password : password,
-        })
-    }).then(res => res.json())
-    .then(data => {
-        if(data.error){
-          console.log(data.error)
-        }
-        else{
-          console.log("successfully signedin")
-          history.push('/login')
-        }
-    }).catch(err =>{
-        console.log(err);
-    })
-}
 
-  // const register = () =>{
-  //   try{
-  //     localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
-  //     history.push("/login");
-  //   }catch(err){
-  //     setErr(err.message)
-  //     console.log(Err)
-  //   }
-  // }
-  register();
+  const dispatch = useDispatch();
+
+
+  const register = (e) =>{
+    e.preventDefault();
+    if(!name || !email || !password){
+      return console.log("enter every field")
+    }else if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+        return console.log("invalid email")
+    }else if(password.length < 6){
+      console.log("enter more then 6 chars")
+    }else{
+      try{
+        localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
+        console.log("loged in successfully")
+        dispatch(login({
+          name:name,
+          email:email,
+          password:password,
+        }))
+        history.push("/home");
+      }catch(err){
+        setErr(err.message)
+        console.log(Err)
+      }
+      setName("")
+      setEmail("")
+      setPassword("")
+    }
+  }
 
   return (
     <div className="logiWwrapper" style={{ textAlign: "center" }}>

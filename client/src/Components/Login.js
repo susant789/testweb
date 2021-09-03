@@ -2,61 +2,54 @@ import React,{useState} from "react";
 import { useHistory } from "react-router-dom";
 import "./login.css";
 import { Link } from "react-router-dom";
-import M from 'materialize-css';
+import { login } from "../Reducers/userSlice"
+import {useDispatch} from "react-redux"
+
 
 function Login() {
 
   const history = useHistory();
+
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [Err,setErr] = useState("")
 
+    const dispatch = useDispatch();
+    const currentUser = JSON.parse(localStorage.getItem("loginInfo"));   
   
-
-  const login = ()=>{
-    if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+    const signin=(e)=>{ 
+      e.preventDefault();
+      if(!email || !password){
+        return console.log("enter every field")
+      }
+      if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
         return console.log("invalid email")
+      }else if(password.length < 6){
+        console.log("enter more then 6 chars")
+      }else if( !currentUser ){
+        return console.log("no user")
+      }
+      else if(currentUser.email === email && currentUser.password === password){
+        try{
+          localStorage.setItem("loginInfo",JSON.stringify({ ...currentUser, isLoggedIn: true }))
+          console.log("loged in successfully")
+          const name = currentUser.name;
+          dispatch(login({
+            name:name,
+            email:email,
+            password:password,
+          }))
+          history.push('/home')
+        }catch(err){
+          setErr(err.message)
+          console.log(Err)
+        }
+      }else{
+        console.log("invalid pass or email")
+        setEmail("")
+        setPassword("")
+      }
     }
-    fetch('/login',{
-        method:"post",
-        headers:{
-            "Content-Type" : "application/json" 
-        },
-        body:JSON.stringify({
-            email : email,
-            password : password,
-        })
-    }).then(res => res.json())
-    .then(data => {
-        if(data.error){
-          console.log(data.error)
-        }
-        else{
-          console.log("sucessfully logedin")
-          history.push('/')
-        }
-    }).catch(error =>{
-        console.log(error);
-    })
-}
-
-  login();
-    // const currentUser = JSON.parse(localStorage.getItem("loginInfo"));    
-
-    // const login=()=>{
-    //   if( !currentUser){
-    //     return M.toast({html:"please signup before login",classes:"#c62828 red darken-3"})
-    //   }
-    //   try{
-    //     if(currentUser.email === email && currentUser.password === password){
-    //       localStorage.setItem("loginInfo",JSON.stringify({ ...currentUser(), isLoggedIn: true }))
-    //       history.push('/')
-    //     }
-    //   }catch(err){
-    //     setErr(err.message)
-    //     M.toast({html:{Err},classes:"#c62828 red darken-3"})
-    //   }
-    // }
 
   return (
     <div className="logiWwrapper" style={{ textAlign: "center" }}>
@@ -78,7 +71,7 @@ function Login() {
         <div className="loginInfo">
           <h3>Email : *</h3>
           <input type="email" placeholder="Email" required 
-          value={email} 
+          value={email}
           onChange={(e)=>{setEmail(e.target.value)}}
           />
         </div>
@@ -89,7 +82,7 @@ function Login() {
           onChange={(e)=>{setPassword(e.target.value)}}/>
         </div>
         <div className="loginBtn">
-          <input type="submit" value="Login" onClick={login} />
+          <input type="submit" value="Login" onClick={signin} />
           <Link to="/signup">
             <button>Signup</button>
           </Link>

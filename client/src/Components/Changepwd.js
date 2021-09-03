@@ -1,8 +1,45 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch,useSelector } from "react-redux";
+import { selectUser } from "../Reducers/userSlice";
+import { login,logout } from "../Reducers/userSlice";
 import "./changepwd.css";
 
 function Changepwd() {
   const [chpassword, setChpassword] = useState("");
+
+  const history = useHistory()
+  const dispatch = useDispatch();
+  const user = useSelector(selectUser);
+
+  const currentUser = JSON.parse(localStorage.getItem("loginInfo"));
+
+  const resetpass =()=>{
+    if(chpassword.length > 6){    
+      try{
+        localStorage.setItem(
+          "loginInfo",
+          JSON.stringify({ ...currentUser, password: chpassword })
+        );
+        dispatch(login({
+          ...user,
+          password:chpassword,
+        }))
+        console.log("changed successfully")
+        history.push("/userpage")
+      }catch(err){
+        console.log(err.message)
+      }
+    }else{
+      console.log("enter more than 6 chars")
+      setChpassword("")
+    }
+  }
+
+  const signout = ()=>{
+    dispatch(logout())
+    history.push("/login")
+  }
 
   return (
     <div className="wrapper2">
@@ -20,7 +57,7 @@ function Changepwd() {
         </h1>
         <div className="info1">
           <h1>username : </h1>
-          <h2>susant678</h2>
+          <h2>{user && user.name}</h2>
         </div>
         <div className="info1">
           <h1>password : </h1>
@@ -28,13 +65,14 @@ function Changepwd() {
             required
             placeholder="Password"
             type="password"
+            minLength={8}
             value={chpassword}
-            onChange={(e) => setChpassword(e)}
+            onChange={(e) => setChpassword(e.target.value)}
           />
         </div>
         <div className="btn" style={{marginTop:"3.8rem"}} >
-          <button className="btn1">save password</button>
-          <button className="btn1">Logout</button>
+          <button className="btn1" onClick={resetpass}>save password</button>
+          <button className="btn1" onClick={signout}>Logout</button>
         </div>
       </div>
     </div>

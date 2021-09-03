@@ -1,20 +1,29 @@
-import React from 'react'
-import {Link} from "react-router-dom"
-import styled from "styled-components"
+import React from 'react';
+import {Link} from "react-router-dom";
+import styled from "styled-components";
+import {selectUser} from "../Reducers/userSlice";
+import {useSelector} from "react-redux";
 
 function Navbar() {
+
+    const user = useSelector(selectUser)
+
     return (
         <>
             <Header>
                 <div>
                     <Link to="/"><h1 className="logo">LOGO</h1></Link>
-                    <Menu>
-                        <div>
-                            <Link className="link" to="/">Home</Link>
-                            <Link className="link" to="/task">Task</Link>
-                            <Link className="link" to="/userpage">User</Link>
-                        </div>
-                    </Menu>
+                    {
+                        user ? 
+                        <Menu className="naav">
+                            <div>
+                                <Link className="link" to="/">Home</Link>
+                                <Link className="link" to="/task">Task</Link>
+                                <Link className="link" to="/userpage">User</Link>
+                            </div>
+                        </Menu> : <Welcome className="wel">WELCOME</Welcome>
+                    }
+                    {user && <Welcome className="wel">Welcome, {user.name}</Welcome> }
                 </div>
             </Header>
         </>
@@ -58,10 +67,19 @@ const Menu = styled.div`
         color:white;
         transition: color .3s;
     }
-    .link:active{
+    .link::active{
         background-color:black;
         color:white;
     }
+`;
+
+const Welcome = styled.div`
+    font-size:2rem;
+    font-weight:500;
+    color:#fff;
+    transform:scale(1.1);
+    text-transform:capitalize;
+    animation:welcome 2s 2;
 `;
 
 export default Navbar

@@ -20,9 +20,11 @@
     letter-spacing: .2rem;
     position: relative;
     left: -2rem;
+    margin-top: 4rem;
 }
 
-.data h3{
+.data p{
+    margin-top: 5rem;
     font-size: 1.3rem;
     line-height: 2rem;
     letter-spacing: .2rem;
