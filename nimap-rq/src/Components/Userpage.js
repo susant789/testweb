@@ -11,20 +11,16 @@ function Userpage() {
     const history = useHistory()
     const user = useSelector(selectUser)
     const dispatch = useDispatch()
-    console.log(user)
-
-    const currentUser = JSON.parse(localStorage.getItem("loginInfo"));
 
     const signout = ()=>{
         dispatch(logout())
-        localStorage.setItem("loginInfo",JSON.stringify({ ...currentUser, isLoggedIn: false }))
         history.push("/login")
     }
 
     return (
         <div className="wrapper1">
             <div className="content1">
-                <h1 style={{ fontSize: "2.5rem",fontWeight: "600",textAlign:"center",borderBottom:".1rem solid #333",margin:"1rem 18rem"}}>USER</h1>
+                <h1 style={{ fontSize: "2.5rem",fontWeight: "600",textAlign:"center",margin:"1rem 18rem"}}>USER</h1>
                 <div className="info">
                     <h1>username : </h1>
                     <h2>{user && user.name}</h2>

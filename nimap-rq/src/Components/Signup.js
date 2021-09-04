@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./login.css";
 import { login } from "../Reducers/userSlice";
-import {useDispatch} from "react-redux"
+import {useDispatch} from "react-redux";
+import cogoToast from "cogo-toast";
 
 function Signup() {
 
@@ -19,21 +20,21 @@ function Signup() {
   const register = (e) =>{
     e.preventDefault();
     if(!name || !email || !password){
-      return console.log("enter every field")
+      return cogoToast.error("enter every field"); 
     }else if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
-        return console.log("invalid email")
+        return cogoToast.error("invalid email");
     }else if(password.length < 6){
-      console.log("enter more then 6 chars")
+        return cogoToast.error("enter more than 6 chars");
     }else{
       try{
-        localStorage.setItem("loginInfo", JSON.stringify({name, email, password,isLoggedIn: true}))
-        console.log("loged in successfully")
+        localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
+        cogoToast.error("signed up successfully");
         dispatch(login({
           name:name,
           email:email,
           password:password,
         }))
-        history.push("/home");
+        history.push("/");
       }catch(err){
         setErr(err.message)
         console.log(Err)

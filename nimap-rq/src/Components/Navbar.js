@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {NavLink,Link} from "react-router-dom";
 import styled from "styled-components";
 import {selectUser} from "../Reducers/userSlice";
 import {useSelector} from "react-redux";
@@ -17,9 +17,9 @@ function Navbar() {
                         user ? 
                         <Menu className="naav">
                             <div>
-                                <Link className="link" to="/">Home</Link>
-                                <Link className="link" to="/task">Task</Link>
-                                <Link className="link" to="/userpage">User</Link>
+                                <NavLink className="link" activeClassName="link-active" exact to="/">Home</NavLink>
+                                <NavLink className="link" activeClassName="link-active" exact to="/task">Task</NavLink>
+                                <NavLink className="link" activeClassName="link-active" exact to="/userpage">User</NavLink>
                             </div>
                         </Menu> : <Welcome className="wel">WELCOME</Welcome>
                     }
@@ -67,7 +67,7 @@ const Menu = styled.div`
         color:white;
         transition: color .3s;
     }
-    .link::active{
+    .link-active{
         background-color:black;
         color:white;
     }

@@ -6,8 +6,8 @@ function Tasklist({id,title,bool,func}) {
     <List>
       <div>
         <h1 style={{flex:.10}}>{id}</h1>
-        <h2 style={{flex:.70,textAlign:"center"}}>
-          {title.toString().substr(0,15)}
+        <h2 style={{flex:.50,textAlign:"left"}}>
+          {title.toString().substr(0,25)}
         </h2>
         <h2 className="bool" style={{flex:.15}}>{`${bool}`}</h2>
       </div>
@@ -21,6 +21,10 @@ const List = styled.div`
   align-items: center;
   justify-content: center;
   padding: 0 2rem;
+  transition:all .2s;
+  &:hover{
+    background:#ddd;
+  }
   .del {
     padding: 0.5rem 1rem;
     color: white;
@@ -28,6 +32,7 @@ const List = styled.div`
     border: none;
     border-radius: 0.5rem;
     font-size: 1.5rem;
+    margin-top:1rem;
   }
   .del:hover{
     transform: scale(1.05);
@@ -36,11 +41,12 @@ const List = styled.div`
 
   div {
     display: flex;
-    width: 70%;
+    width: 85%;
     align-items: center;
     justify-content: space-evenly;
     border-bottom: 0.08rem solid grey;
-    margin: 1.8rem 2rem 2rem 1rem;
+    // margin: 0 2rem 2rem 0;
+    margin-top:2rem;
     color: black;
 
     h2 {

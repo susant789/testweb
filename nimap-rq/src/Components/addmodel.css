@@ -1,0 +1,75 @@
+.model1{
+    width: 60rem;
+    position: fixed;
+    top:15%;
+    left:12%;
+    background-color: rgb(241, 240, 235);
+    border: .2rem solid #fff;
+    border-radius: 2rem;
+    padding: 1rem;
+}
+
+.model1 h1{
+    text-align: center;
+    margin: 0 0 0 .5rem;
+    letter-spacing: .1rem;
+}
+.model1 .line{
+    text-align: center;
+    margin: 1rem auto;
+    width:13rem;
+    height:.2rem;
+    background-color: #333;
+}
+.model1 form{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+.model1 input{
+    flex: 1;
+    margin-right: .8rem;
+    font-size: 1.8rem;
+    border: none;
+    border-radius: 1rem;
+    letter-spacing: .05rem;
+    padding: .5rem 1rem;
+}
+.model1 h2{
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-transform: capitalize;
+    margin-right: .5rem;
+}
+.model1 button{
+    margin-right: .5rem;
+    font-size: 1.8rem;
+    font-weight: 500;
+    border-radius: 1rem;
+    border:none;
+    padding: .5rem 1.5rem;
+    background-color: rgb(223, 32, 32);
+    color: #fff;
+}
+.model1 .b{
+    background-color: rgb(44, 44, 231);
+}
+.add{
+    background-color: rgb(66, 66, 201);
+    color:#fff;
+    border-radius:50%;
+    padding: .5rem 1.7rem;
+    border:none;
+    font-size: 4rem;
+    font-weight: 200;
+    transition: all .2s;
+    position: fixed;
+    top:5%;
+    left:8%;
+}
+
+.add:hover{
+    transform: scale(1.05);
+    transition: all .2s;
+}
