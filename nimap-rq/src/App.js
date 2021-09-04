@@ -9,13 +9,8 @@ import Changepwd from './Components/Changepwd';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import PrivateRoute from './Components/Priviteroutes';
-import {selectUser} from "./Reducers/userSlice";
-import {useSelector} from "react-redux"
 
 function App() {
-
-  const user = useSelector(selectUser)
-
   return (
     <Router>
       <Navbar />
