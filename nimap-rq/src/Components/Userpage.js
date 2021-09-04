@@ -13,8 +13,11 @@ function Userpage() {
     const dispatch = useDispatch()
     console.log(user)
 
+    const currentUser = JSON.parse(localStorage.getItem("loginInfo"));
+
     const signout = ()=>{
         dispatch(logout())
+        localStorage.setItem("loginInfo",JSON.stringify({ ...currentUser, isLoggedIn: false }))
         history.push("/login")
     }
 

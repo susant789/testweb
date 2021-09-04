@@ -22,10 +22,9 @@ function App() {
         <Route exact path="/"
           render={() => {
             return (
-              !user ?
-                <Redirect to="/login" /> :
-                <Redirect to="/home" />
-                
+              user ?
+              (<Redirect to="/home" /> || <Redirect to="/task" /> || <Redirect to="/userpage" /> || <Redirect to="/changepsw" />) :
+                (<Redirect to="/login" />)
             )
             }}
         />

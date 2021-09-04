@@ -26,7 +26,7 @@ function Signup() {
       console.log("enter more then 6 chars")
     }else{
       try{
-        localStorage.setItem("loginInfo", JSON.stringify({name, email, password}))
+        localStorage.setItem("loginInfo", JSON.stringify({name, email, password,isLoggedIn: true}))
         console.log("loged in successfully")
         dispatch(login({
           name:name,

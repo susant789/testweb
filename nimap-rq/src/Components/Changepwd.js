@@ -13,7 +13,7 @@ function Changepwd() {
   const user = useSelector(selectUser);
 
   const currentUser = JSON.parse(localStorage.getItem("loginInfo"));
-
+  
   const resetpass =()=>{
     if(chpassword.length > 6){    
       try{
@@ -38,6 +38,7 @@ function Changepwd() {
 
   const signout = ()=>{
     dispatch(logout())
+    localStorage.setItem("loginInfo",JSON.stringify({ ...currentUser, isLoggedIn: false }))
     history.push("/login")
   }
 
